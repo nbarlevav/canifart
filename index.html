@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Can I Fart?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=3" />
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6366f1" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <!-- GA4: replace G-XXXXXXXXXX with your Measurement ID from analytics.google.com -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+</head>
+<body>
+
+  <!-- Animated background blobs -->
+  <div class="bg-blobs">
+    <span class="b1"></span>
+    <span class="b2"></span>
+    <span class="b3"></span>
+  </div>
+
+  <!-- CRITICAL urgency banner -->
+  <div class="critical-banner" id="criticalBanner">
+    ⚠️ CRITICAL THRESHOLD REACHED — FIND A BATHROOM IMMEDIATELY
+  </div>
+
+  <div class="app-container">
+
+    <!-- SECTION 1: Hero Header -->
+    <header class="hero">
+      <h1>Can I Fart? 💨</h1>
+      <p class="subtitle">Real-time flatulence risk assessment</p>
+      <div class="hero-row">
+        <div class="status-indicator">
+          <span class="dot pulse"></span>
+          <span>Fart sensors online</span>
+        </div>
+        <button class="roulette-btn" id="rouletteBtn">🎲 Feeling brave?</button>
+      </div>
+    </header>
+
+    <!-- SECTION 2: Result Display -->
+    <div class="result-card glass" id="resultCard">
+      <div class="gauge-wrapper">
+        <svg class="gauge" viewBox="0 0 200 115" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad-green" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#16a34a" />
+              <stop offset="100%" style="stop-color:#4ade80" />
+            </linearGradient>
+            <linearGradient id="grad-yellow" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#d97706" />
+              <stop offset="100%" style="stop-color:#fbbf24" />
+            </linearGradient>
+            <linearGradient id="grad-red" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#dc2626" />
+              <stop offset="100%" style="stop-color:#f87171" />
+            </linearGradient>
+          </defs>
+          <!-- Track -->
+          <path
+            d="M 16 100 A 84 84 0 0 1 184 100"
+            fill="none"
+            stroke="rgba(255,255,255,0.12)"
+            stroke-width="12"
+            stroke-linecap="round"
+          />
+          <!-- Fill (animated) -->
+          <path
+            id="gaugeFill"
+            d="M 16 100 A 84 84 0 0 1 184 100"
+            fill="none"
+            stroke="url(#grad-green)"
+            stroke-width="12"
+            stroke-linecap="round"
+            stroke-dasharray="0 263.89"
+            style="transition: stroke-dasharray 0.6s ease;"
+          />
+        </svg>
+        <div class="gauge-center">
+          <span class="score-number" id="scoreNumber">--</span>
+          <span class="score-label">danger score</span>
+        </div>
+      </div>
+
+      <div class="verdict" id="verdictBox">
+        <span class="verdict-emoji" id="verdictEmoji">💨</span>
+        <h2 class="verdict-text" id="verdictText">Fill in your situation below</h2>
+      </div>
+
+      <p class="reasoning-text" id="reasoningText">
+        Tell us where you are and what you ate...
+      </p>
+
+      <div class="best-time-banner" id="bestTimeBanner" style="display:none;">
+        Best time to release: <strong id="bestTime">--</strong>
+      </div>
+
+      <div class="result-actions">
+        <button class="share-btn" id="shareBtn">📤 Share result</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Input Controls -->
+    <div class="controls-card glass">
+
+      <!-- Auto-detect bar -->
+      <div class="autodetect-bar">
+        <span class="autodetect-title">⚡ Auto-detect</span>
+        <div class="autodetect-buttons">
+          <button class="detect-btn" id="detectNoiseBtn">
+            <span class="detect-icon">🎙️</span>
+            <span class="detect-label">Noise level</span>
+          </button>
+          <button class="detect-btn" id="detectPeopleBtn">
+            <span class="detect-icon">📡</span>
+            <span class="detect-label">Nearby devices</span>
+          </button>
+        </div>
+        <div class="detected-tags" id="detectedTags"></div>
+      </div>
+
+      <div class="autodetect-divider"></div>
+
+      <!-- Location -->
+      <div class="input-group">
+        <label class="input-label">Where are you?</label>
+        <div class="pill-grid" id="locationGroup" data-param="location" data-multi="false">
+          <button class="pill" data-val="home_alone">🏠 Home alone</button>
+          <button class="pill" data-val="car_windows_down">🚗 Car (windows down)</button>
+          <button class="pill" data-val="car_windows_up">🚘 Car (windows up)</button>
+          <button class="pill" data-val="gym">💪 Gym</button>
+          <button class="pill" data-val="library">📚 Library</button>
+          <button class="pill" data-val="office">💼 Office</button>
+          <button class="pill" data-val="doctors">🏥 Doctor's office</button>
+          <button class="pill" data-val="airplane">✈️ Airplane</button>
+          <button class="pill" data-val="first_date">💘 First date</button>
+          <button class="pill" data-val="church">🙏 Church / Temple</button>
+          <button class="pill" data-val="elevator">🛗 Elevator</button>
+          <button class="pill" data-val="meeting">📊 Office meeting</button>
+        </div>
+      </div>
+
+      <!-- People Nearby -->
+      <div class="input-group">
+        <label class="input-label">People nearby</label>
+        <div class="pill-row" id="peopleGroup" data-param="people" data-multi="false">
+          <button class="pill" data-val="alone">🙋 Alone</button>
+          <button class="pill" data-val="few">👥 1–2 people</button>
+          <button class="pill" data-val="group">👨‍👩‍👧‍👦 Small group</button>
+          <button class="pill" data-val="crowd">🫂 Crowd</button>
+        </div>
+      </div>
+
+      <!-- Social Context -->
+      <div class="input-group">
+        <label class="input-label">Who's around?</label>
+        <div class="pill-row" id="socialGroup" data-param="social" data-multi="false">
+          <button class="pill" data-val="friends">😂 Close friends</button>
+          <button class="pill" data-val="family">👪 Family</button>
+          <button class="pill" data-val="strangers">🫤 Strangers</button>
+          <button class="pill" data-val="partner">💑 Partner</button>
+          <button class="pill" data-val="boss">😰 Boss</button>
+        </div>
+      </div>
+
+      <!-- Urgency -->
+      <div class="input-group">
+        <label class="input-label">Urgency level</label>
+        <div class="emoji-strip" id="urgencyGroup" data-param="urgency" data-multi="false">
+          <button class="emoji-btn selected" data-val="low">😌<br><small>Can wait</small></button>
+          <button class="emoji-btn" data-val="med">😬<br><small>Getting urgent</small></button>
+          <button class="emoji-btn" data-val="high">🚨<br><small>CRITICAL</small></button>
+        </div>
+      </div>
+
+      <!-- Food Consumed -->
+      <div class="input-group">
+        <label class="input-label">What did you eat? <span class="hint">(select all that apply)</span></label>
+        <div class="pill-grid" id="foodGroup" data-param="food" data-multi="true">
+          <button class="pill" data-val="nothing">🥗 Nothing / Salad</button>
+          <button class="pill" data-val="fastfood">🍔 Fast food</button>
+          <button class="pill" data-val="carbonated">🥤 Carbonated drinks</button>
+          <button class="pill" data-val="dairy">🧀 Dairy</button>
+          <button class="pill" data-val="beans">🫘 Beans / Broccoli</button>
+        </div>
+      </div>
+
+      <!-- Ambient Noise -->
+      <div class="input-group">
+        <label class="input-label">Ambient noise level</label>
+        <div class="pill-row" id="noiseGroup" data-param="noise" data-multi="false">
+          <button class="pill" data-val="jackhammer">🔨 Jackhammer</button>
+          <button class="pill" data-val="loud">🎵 Loud music</button>
+          <button class="pill" data-val="conversation">🗣️ Conversation</button>
+          <button class="pill" data-val="quiet">🤫 Quiet hum</button>
+          <button class="pill" data-val="silent">🔇 Dead silent</button>
+        </div>
+      </div>
+
+      <!-- Confidence Slider -->
+      <div class="input-group">
+        <label class="input-label">Confidence it'll be silent: <span class="slider-val" id="confVal">50%</span></label>
+        <input type="range" id="confidenceSlider" min="0" max="100" value="50" />
+        <div class="slider-labels">
+          <span>💀 Risky</span>
+          <span>🥷 Silent ninja</span>
+        </div>
+      </div>
+
+      <!-- Time Since Last Meal -->
+      <div class="input-group">
+        <label class="input-label">Time since last meal: <span class="slider-val" id="mealVal">2h</span></label>
+        <input type="range" id="mealSlider" min="0" max="8" step="0.5" value="2" />
+        <div class="slider-labels">
+          <span>🍽️ Just ate</span>
+          <span>🕰️ Ages ago</span>
+        </div>
+      </div>
+
+      <!-- Escape Route -->
+      <div class="input-group inline-group">
+        <label class="input-label">Escape route available?</label>
+        <div class="toggle-strip" id="escapeGroup" data-param="escape" data-multi="false">
+          <button class="pill" data-val="yes">✅ Yes</button>
+          <button class="pill" data-val="no">🚫 No</button>
+        </div>
+      </div>
+
+      <!-- Smart Devices -->
+      <div class="input-group">
+        <label class="input-label">Smart devices nearby <span class="hint">(they're listening)</span></label>
+        <div class="pill-grid" id="devicesGroup" data-param="devices" data-multi="true">
+          <button class="pill" data-val="none">🔕 None</button>
+          <button class="pill" data-val="alexa">🔵 Alexa</button>
+          <button class="pill" data-val="google">🟢 Google Home</button>
+          <button class="pill" data-val="meeting_mic">🎙️ Meeting mic</button>
+          <button class="pill" data-val="cameras">📹 Security cameras</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 4: Stat Cards -->
+    <div class="cards-grid">
+      <div class="glass info-card">
+        <span class="card-label">Time of Day</span>
+        <span class="card-value" id="timeOfDay">--</span>
+      </div>
+      <div class="glass info-card">
+        <span class="card-label">Top Risk Factor</span>
+        <span class="card-value" id="topRisk">--</span>
+      </div>
+      <div class="glass info-card">
+        <span class="card-label">Situations Assessed</span>
+        <span class="card-value" id="totalCount">12,847</span>
+      </div>
+      <div class="glass info-card">
+        <span class="card-label">Farts Approved Today</span>
+        <span class="card-value" id="approvedCount">3,291</span>
+      </div>
+    </div>
+
+    <!-- SECTION 5: Daily Safety Chart -->
+    <div class="chart-card glass">
+      <div class="chart-header">
+        <span>Best time to fart today?</span>
+        <span class="best-time-badge" id="chartBestTime">Calculating...</span>
+      </div>
+      <canvas id="safetyChart" height="120"></canvas>
+    </div>
+
+    <!-- SECTION 6: Fun fact ticker -->
+    <div class="fun-fact glass" id="funFact">
+      <span class="fun-fact-label">💡 Did you know?</span>
+      <span class="fun-fact-text" id="funFactText"></span>
+    </div>
+
+    <!-- SECTION 7: Footer -->
+    <footer>
+      <p>Not responsible for any social consequences. 💨</p>
+      <p class="footer-sub">Inspired by <a href="https://canishower.com" target="_blank" rel="noopener">canishower.com</a></p>
+    </footer>
+
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+  <script src="app.js?v=4"></script>
+</body>
+</html>
