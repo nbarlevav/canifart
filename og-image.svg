@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29"/>
+      <stop offset="50%" style="stop-color:#302b63"/>
+      <stop offset="100%" style="stop-color:#24243e"/>
+    </linearGradient>
+    <linearGradient id="blob1g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.35"/>
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.15"/>
+    </linearGradient>
+    <linearGradient id="blob2g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.1"/>
+    </linearGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="60"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="80"/></filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Blobs -->
+  <ellipse cx="200" cy="150" rx="280" ry="250" fill="url(#blob1g)" filter="url(#blur1)"/>
+  <ellipse cx="1050" cy="480" rx="300" ry="260" fill="url(#blob2g)" filter="url(#blur2)"/>
+  <ellipse cx="700" cy="80" rx="200" ry="160" fill="#a855f7" fill-opacity="0.12" filter="url(#blur1)"/>
+
+  <!-- Glass card -->
+  <rect x="100" y="80" width="1000" height="470" rx="32" fill="white" fill-opacity="0.06" stroke="white" stroke-opacity="0.12" stroke-width="1.5"/>
+
+  <!-- Big emoji -->
+  <text x="600" y="260" font-size="160" text-anchor="middle" dominant-baseline="middle">💨</text>
+
+  <!-- Title -->
+  <text x="600" y="360" font-family="Arial Black, Arial, sans-serif" font-size="88" font-weight="900" text-anchor="middle" fill="white">Can I Fart?</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="430" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="white" fill-opacity="0.7">The scientific flatulence risk calculator</text>
+
+  <!-- Domain pill -->
+  <rect x="470" y="470" width="260" height="52" rx="26" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.2" stroke-width="1"/>
+  <text x="600" y="502" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="white" fill-opacity="0.9">canifart.com</text>
+</svg>
